@@ -1,0 +1,19 @@
+from src.main.api.requests.requester import Requester
+from src.main.api.models.credit_request_request import CreditRequestRequest
+from src.main.api.models.credit_request_response import CreditRequestResponse
+import requests
+from requests import Response
+from http import HTTPStatus
+
+class CreditRequestRequester(Requester):
+    def post(self, credit_request: CreditRequestRequest) -> CreditRequestResponse | Response:
+        url = f"{self.base_url}/credit/request"
+        response = requests.post(
+            url=url,
+            json=credit_request.model_dump(),
+            headers=self.headers
+        )
+        self.response_spec(response)
+        if response.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
+            return CreditRequestResponse(**response.json())
+        return response
