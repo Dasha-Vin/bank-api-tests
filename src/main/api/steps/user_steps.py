@@ -78,7 +78,7 @@ class UserSteps(BaseSteps):
         CrudRequester(
             RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.CREDIT_REPAY,
-            ResponseSpecs.request_conflict()
+            ResponseSpecs.request_unprocessable_entity()
         ).post(credit_repay_request)
 
     def get_account_transfactions(self, create_user_request: CreateUserRequest, account_id: int):

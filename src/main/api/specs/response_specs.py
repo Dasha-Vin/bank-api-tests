@@ -34,7 +34,7 @@ class ResponseSpecs:
         return confirm
 
     @staticmethod
-    def request_conflict():
+    def request_unprocessable_entity():
         def confirm(response: Response):
-            assert response.status_code == HTTPStatus.CONFLICT, response.text
+            assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY, response.text
         return confirm
